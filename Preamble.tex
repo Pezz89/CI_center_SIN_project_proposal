@@ -1,0 +1,157 @@
+% Koma-script replacement article document class
+\documentclass{ecsreport}
+
+% List customisation package
+\usepackage{enumitem}
+\usepackage[refpage]{nomencl}
+
+% Format hyphenations with britain specific formatting
+\usepackage[british]{babel}
+% Bibliographic citation engine
+\usepackage{natbib}            % Use Natbib style for the refs.
+% Package for correct handeling of urls, email addresses etc...
+\usepackage{url}
+% Allows for manual handeling of object and figure placement
+\usepackage{float}
+% Handles captioning of objects and figures
+\usepackage{caption}
+% Place captions on top of table
+\restylefloat{table}
+
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage[pass]{geometry}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+
+% Gantt chart
+\usepackage{pgfgantt}
+\usepackage{tikz}
+\usepackage{varwidth}
+\usepackage{ragged2e}
+\newganttlinktype{rdldr*}{%
+  \draw [/pgfgantt/link]
+    (\xLeft, \yUpper) --
+    (\xLeft + \ganttvalueof{link bulge 1} * \ganttvalueof{x unit},
+      \yUpper) --
+    ($(\xLeft + \ganttvalueof{link bulge 1} * \ganttvalueof{x unit},
+      \yUpper)!%
+      \ganttvalueof{link mid}!%
+      (\xLeft + \ganttvalueof{link bulge 1} * \ganttvalueof{x unit},
+      \yLower)$) --
+    ($(\xRight - \ganttvalueof{link bulge 2} * \ganttvalueof{x unit},
+      \yUpper)!%
+      \ganttvalueof{link mid}!%
+      (\xRight - \ganttvalueof{link bulge 2} * \ganttvalueof{x unit},
+      \yLower)$) --
+    (\xRight - \ganttvalueof{link bulge 2} * \ganttvalueof{x unit},
+      \yLower) --
+    (\xRight, \yLower);%
+}
+\ganttset{
+  link bulge 1/.link=/pgfgantt/link bulge,
+  link bulge 2/.link=/pgfgantt/link bulge}
+
+\usetikzlibrary{arrows,positioning,shapes.geometric}
+
+\newcommand{\dtoprule}{\specialrule{1pt}{0pt}{1.4pt}%
+            \specialrule{1pt}{0pt}{0pt}%
+            }
+\newcommand{\dbottomrule}{\specialrule{1pt}{0pt}{1.4pt}%
+            \specialrule{1pt}{0pt}{\belowrulesep}%
+            }
+\newcommand{\emidrule}{\specialrule{0.5pt}{0pt}{1.4pt}%
+            }
+% Allow counters for footers to be reset per page
+\usepackage{perpage}
+\MakePerPage{footnote}
+% Allows for manual control of abstract environment
+\usepackage{abstract}
+% Allow for inserting of images
+\usepackage{graphicx}
+% Create hyperlinks in bibliography
+\usepackage{hyperref}
+% Enhanced mathemeatical formating
+\usepackage{amsmath}
+% Included for issues to do with fonts and accents. Nothing worth worrying
+% about...
+\usepackage[T1]{fontenc}
+% Write in utf-8. Just leave it and don't worry about it...
+\usepackage[utf8]{inputenc}
+% Used for adding lorum ipsum filler text
+\usepackage{blindtext}
+% Set path to included figures and graphics
+\graphicspath{./resources/}
+
+\usepackage{tipa}
+% Set path to bibliography location
+% 
+% Post-process bibliography for special characters - a workaround for a
+% problem with Mendley's handling of certain characters in hyperlinks
+% \DeclareSourcemap{
+%     \maps{
+%         \map{ % Replaces '{\_}', '{_}' or '\_' with just '_'
+%             \step[fieldsource=url,
+%                   match=\regexp{\{\\\_\}|\{\_\}|\\\_},
+%                   replace=\regexp{\_}]
+%         }
+%         \map{ % Replaces '{'$\sim$'}', '$\sim$' or '{~}' with just '~'
+%             \step[fieldsource=url,
+%                   match=\regexp{\{\$\\sim\$\}|\{\~\}|\$\\sim\$},
+%                   replace=\regexp{\~}]
+%         }
+%     }
+% }
+% 
+% % Place abstract on title page rather than on it's own separate page
+% \newsavebox{\abstractbox}
+% \renewenvironment{abstract}
+%   {\begin{lrbox}{0}\begin{minipage}{\textwidth}
+%    \begin{center}\normalfont\sectfont\abstractname\end{center}\quotation}
+%   {\endquotation\end{minipage}\end{lrbox}%
+%    \global\setbox\abstractbox=\box0 }
+% 
+% % No idea what this does...
+% \usepackage{etoolbox}
+% \makeatletter
+% \expandafter\patchcmd\csname\string\maketitle\endcsname
+%   {\vskip\z@\@plus3fill}
+%   {\vskip\z@\@plus2fill\box\abstractbox\vskip\z@\@plus1fill}
+%   {}{}
+% \makeatother
+% 
+% % Declare \citeyearpar command for adding year (with paraentheses) without
+% % author's name as reference
+% \DeclareCiteCommand{\citeyearpar}
+%     {}
+%     {\mkbibparens{\bibhyperref{\printdate}}}
+%     {\multicitedelim}
+%     {}
+% 
+% MATLAB Code block stuff...
+\usepackage{color}
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{language=Matlab,
+   keywords={break,case,catch,continue,else,elseif,end,for,function,
+      global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\color{gray},
+   stringstyle=\color{dkgreen},
+   numbers=left,
+   numberstyle=\tiny\color{gray},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   showstringspaces=false}

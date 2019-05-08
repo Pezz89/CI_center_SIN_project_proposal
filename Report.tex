@@ -1,0 +1,87 @@
+
+%% ----------------------------------------------------------------
+%% Article.tex
+%% ----------------------------------------------------------------
+\input{Preamble}            % Include your abbreviations
+\graphicspath{{./resources/}}
+\hypersetup{colorlinks=true}   % Set to false for black/white printing
+\input{Definitions}            % Include your abbreviations
+%% ----------------------------------------------------------------
+\begin{document}
+
+\frontmatter
+\title      {Speech in noise test battery development plan}
+\authors    {\texorpdfstring
+             {\href{mailto:s.w.perry@soton.ac.uk}{Samuel W. Perry}}
+             {Samuel W. Perry}
+            }
+\addresses  {\groupname\\\deptname\\\univname}
+\date       {\today}
+\subject    {}
+\keywords   {}
+\maketitle
+\mainmatter
+%% ----------------------------------------------------------------
+\section*{Outline}\label{Section:Introduction}
+\begin{itemize}
+    \item Initial task is to develop a speech in noise test such as BKB in a
+        portable format that could be deployed on a standard Windows (or Mac)
+        based system easily, thus improving on the original Matlab implementation.
+    \item Results of test presented on screen to clinician in initial
+        implementation, no further management of data.
+    \item Further development then focused on management of patient data using
+        Southampton's database. This is currently the most significant unknown
+        in the project due to lack of details on database format and lack of
+        prior experience with databases, relative to other skills.
+    \item Other data export options may or may not be possible (such as
+        exporting to an excel file). This will be determined through parallel
+        work on the EHS project.
+    \item Subsequent tests will then be implemented based on priority, liasing
+        with clinicians to determine the details of any other features that may
+        be of use.
+    \item An estimated final delivery of early 2020 is proposed, however this
+        is highly dependent on unknown factors such as the database and the
+        number of speech in noise tests to be developed.  Additionally, as this
+        project is running in parallel with both the developer's PhD work and
+        the EHS project, other projects may need to be prioritised at times
+        based on their progress.
+\end{itemize}
+
+\begin{landscape}
+\section*{Project timeline 1--10 months}\label{Section:Gantt}
+\begin{figure}[H]
+\begin{tikzpicture}
+\begin{ganttchart}[
+hgrid,
+vgrid,
+time slot format=isodate-yearmonth,
+%progress label text=  {\quad\pgfmathprintnumber[precision=0,verbatim]{#1}\%},
+milestone label font=\tiny,
+%group label font=\tiny,
+%title label font=\tiny,
+bar label node/.style={text width=5cm,align=right,font=\scriptsize\RaggedLeft,anchor=east},
+milestone label node/.style={text width=5cm,align=right,font=\scriptsize\RaggedLeft,anchor=east},
+%group label node/.style={text width=3cm,align=right,font=\scriptsize\RaggedLeft,anchor=east}
+time slot unit=month,
+x unit=1.5cm,
+milestone/.append style={xscale=0.4} % 0.6/1.4 ≈ 0.42857
+]{2019-05}{2020-02}
+\gantttitlecalendar{year, month} \\
+% \ganttbar[bar/.append style={dashed}]{}{2019-02}{2019-09}
+\ganttbar{Verify plans for implementation}{2019-05}{2019-05}\\
+\ganttbar{Develop overarching framework}{2019-06}{2019-07}\\
+\ganttbar{Port first test from existing implementation}{2019-08}{2019-09}\\
+\ganttmilestone{Useable test ready for testing in CI center}{2019-09}\\
+\ganttbar[bar/.append style={dashed}]{Integrate database}{2019-10}{2019-11}\\
+\ganttmilestone{Database integrated test ready for testing in CI center}{2019-11}\\
+\ganttbar{Port other tests from existing implementation}{2019-12}{2020-01}
+\ganttbar[bar/.append style={dashed}]{}{2020-02}{2020-02}\\
+\ganttbar{Finalisation and further testing}{2020-02}{2020-02}\\
+\end{ganttchart}
+\end{tikzpicture}
+\caption*{Block tasks are unlikely to change in terms of timescales; dashed tasks may change due to technical challenges that are currently unknown; diamonds represent milestones}
+\label{gantt}
+\end{figure}
+\end{landscape}
+\end{document}
+% ----------------------------------------------------------------
